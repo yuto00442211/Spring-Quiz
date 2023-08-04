@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,22 +33,34 @@ public class SpringQuizApplication{
 		// 更新処理
 		//updateQuiz();
 		// 削除処理
-		deleteQuiz();
+		//deleteQuiz();
+		//クイズを実行する
+		//doQuiz();
 	}
-	/** === クイズを2件登録します === */
+	/** === クイズを5件登録します === */
 	private void setup(){
+		System.out.println("---登録処理開始---");
 		// エンティティ生成
-		Quiz quiz1 = new Quiz(null,"「Spring」はフレームワークですか？",true,"登録太郎");
-		// 登録実行
-		quiz1 = repository.save(quiz1);
-		// 登録確認
-		System.out.println("登録したデータは、" + quiz1 + "です。");
-		// エンティティ生成
-		Quiz quiz2 = new Quiz(null,"「Spring MVC」はバッチ処理機能を提供しますか？",false,"登録太郎");
-		// 登録実行
-		quiz2 = repository.save(quiz2);
-		// 登録確認
-		System.out.println("登録したデータは、" + quiz2 + "です。");
+		Quiz quiz1 = new Quiz(null,"「Java」はオブジェクト指向言語である。",true,"登録太郎");
+
+		Quiz quiz2 = new Quiz(null,"「Spring Data」はデータアクセスに対する機能を提供する。",true,"登録太郎");
+
+		Quiz quiz3 = new Quiz(null,"プログラムが沢山配置されているサーバーの事を「ライブラリ」という",false,"登録太郎");
+
+		Quiz quiz4 = new Quiz(null,"「@Component」はインスタンス生成アノテーションである",true,"登録太郎");
+		
+		Quiz quiz5 = new Quiz(null,"「Spring MVC」が実装している「デザインパターン」で"
+				+ "すべてのリクエストを1つのコントローラーで受け取るパターンは"
+				+ "「シングルコントローラー・パターン」である",false,"登録太郎");
+		//リストにエンティティを格納
+		List<Quiz>quizList = new ArrayList<>();
+		//第一引数に格納先、第二引数は可変長引数なので、エンティティを記述
+		Collections.addAll(quizList, quiz1,quiz2,quiz3,quiz4,quiz5);
+		//登録実行
+		for(Quiz quiz:quizList) {
+			service.insertQuiz(quiz);
+		}
+		System.out.println("---登録処理完了---");
 	}
 
 	/** === 全件取得 === */
