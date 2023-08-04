@@ -115,7 +115,7 @@ public class QuizController {
 			return "crud";
 		}
 	}
-	//-------【以下はFormとDomainObjectの詰め直し】---------------------------------------------------
+	//-------【以下はFormとDomainObjectの詰め直し】----------------------------------------------------------
 	//QuizFormからQuizに詰め直して戻り値とし返します
 	private Quiz makeQuiz(QuizForm quizForm) {
 		Quiz quiz = new Quiz();
