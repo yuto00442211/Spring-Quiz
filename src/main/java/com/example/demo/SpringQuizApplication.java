@@ -10,7 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.demo.entity.Quiz;
-import com.example.demo.repository.QuizRepository;
+import com.example.demo.service.QuizService;
 
 @SpringBootApplication
 public class SpringQuizApplication{
@@ -21,7 +21,7 @@ public class SpringQuizApplication{
 	}
 	/** 注入 */
 	@Autowired
-	QuizRepository repository;
+	QuizService service;
 	/** 実行メソッド */
 	private void execute(){
 		// 登録
@@ -58,7 +58,7 @@ public class SpringQuizApplication{
 		Collections.addAll(quizList, quiz1,quiz2,quiz3,quiz4,quiz5);
 		//登録実行
 		for(Quiz quiz:quizList) {
-			//service.insertQuiz(quiz);
+			service.insertQuiz(quiz);
 		}
 		System.out.println("---登録処理完了---");
 	}
@@ -67,7 +67,7 @@ public class SpringQuizApplication{
 	private void showList(){
 		System.out.println("--- 全件取得開始 ---");
 		// リポジトリを使用して全件取得を実施、結果を取得
-		Iterable<Quiz> quizzes = repository.findAll();
+		Iterable<Quiz> quizzes = service.selectAll();
 		for(Quiz quiz : quizzes){
 			System.out.println(quiz);
 		}
@@ -78,7 +78,7 @@ public class SpringQuizApplication{
 	private void showOne(){
 		System.out.println("--- 1件取得開始 ---");
 		// リポジトリを使用して1件取得を実施、結果を取得(戻り値はOptional)
-		Optional<Quiz> quizOpt = repository.findById(1);
+		Optional<Quiz> quizOpt = service.selectOneById(1);
 		// 値存在チェック
 		if(quizOpt.isPresent()){
 			System.out.println(quizOpt.get());
@@ -94,9 +94,7 @@ public class SpringQuizApplication{
 		// 変更したいエンティティを生成する
 		Quiz quiz1 = new Quiz(1,"「スプリング」はフレームワークですか？",true,"変更タロウ");
 		// 更新実行
-		quiz1 = repository.save(quiz1);
-		// 更新確認
-		System.out.println("更新データは、" + quiz1 + "です。");
+		service.updateQuiz(quiz1);
 		System.out.println("--- 更新処理完了 ---");
 	}
 
@@ -104,8 +102,30 @@ public class SpringQuizApplication{
 	private void deleteQuiz(){
 		System.out.println("--- 削除処理開始 ---");
 		// 削除実行
-		repository.deleteById(2);
+		service.deleteQuizById(2);
 		System.out.println("--- 削除処理完了 ---");
 	}
 
+	/**===ランダムでクイズを取得して、クイズの正解/不正解を判定===*/
+	private void doQuiz() {
+		System.out.println("---クイズ1件取得開始---");
+		//リポジトリを使用して１件取得を実施、結果を取得（戻り値はOptional）
+		Optional<Quiz>quizOpt = service.selectOneRandomQuiz();
+		//値存在チェック
+		if(quizOpt.isPresent()) {
+			System.out.println(quizOpt.get());
+		}else {
+			System.out.println("該当する問題が存在しません");
+		}
+		System.out.println("---クイズ一件取得完了");
+		
+		//解答を実施
+		boolean myAnswer = false;
+		Integer id = quizOpt.get().getId();
+		if(service.checkQuiz(id, myAnswer)) {
+			System.out.println("正解です");
+		}else {
+			System.out.println("不正解です");
+		}
+	}
 }
