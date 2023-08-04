@@ -58,7 +58,7 @@ public class SpringQuizApplication{
 		Collections.addAll(quizList, quiz1,quiz2,quiz3,quiz4,quiz5);
 		//登録実行
 		for(Quiz quiz:quizList) {
-			service.insertQuiz(quiz);
+			//service.insertQuiz(quiz);
 		}
 		System.out.println("---登録処理完了---");
 	}
