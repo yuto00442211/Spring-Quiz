@@ -25,11 +25,11 @@ public class SpringQuizApplication{
 	/** 実行メソッド */
 	private void execute(){
 		// 登録
-		//setup();
+		setup();
 		// 全件取得
-		//showList();
+		showList();
 		// 1件取得
-		//showOne();
+		showOne();
 		// 更新処理
 		//updateQuiz();
 		// 削除処理
