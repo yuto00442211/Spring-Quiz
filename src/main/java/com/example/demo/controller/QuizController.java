@@ -50,14 +50,14 @@ public class QuizController {
 	}
 
 	//Quizデータを1件挿入
-	@PostMapping("/insergt")
+	@PostMapping("/insert")
 	public String insert(@Validated QuizForm quizForm,BindingResult bindingResult,
-			Model model,RedirectAttributes) {
+			Model model,RedirectAttributes redirectAttributes) {
 		//FormからEntityへの詰め替え
 		Quiz quiz = new Quiz();
 		quiz.setQuestion(quizForm.getQuestion());
-		quiz.getAnswer(quizForm.getAnswer());
-		quiz.getAuthor(quizForm.getAuthor());
+		quiz.setAnswer(quizForm.getAnswer());
+		quiz.setAuthor(quizForm.getAuthor());
 
 		//入力チェック
 		if(!bindingResult.hasErrors()) {
@@ -72,14 +72,14 @@ public class QuizController {
 	}
 	//Quizデータを1件取得し、フォーム内に表示する
 	@GetMapping("/{id}")
-	public String showUpdate(QuizForm quizform,@PathVariable Integer id,Model model) {
+	public String showUpdate(QuizForm quizForm,@PathVariable Integer id,Model model) {
 		//Quizを取得(Optionalでラップ)
 		Optional<Quiz>quizOpt = service.selectOneById(id);
 		//QuizFormへの詰め直し
 		Optional<QuizForm>quizFormOpt = quizOpt.map(t -> makeQuizForm(t));
 		//QuizFormがnullでなければ中身を取り出す
 		if(quizFormOpt.isPresent()) {
-			quizform = quizFormOpt.get();
+			quizForm = quizFormOpt.get();
 		}
 		//更新用のModelを作成する
 		makeUpdateModel(quizForm,model);
@@ -105,7 +105,7 @@ public class QuizController {
 		if(!result.hasErrors()) {
 			//更新処理、フラッシュスコープの使用、リダイレクト(個々の編集ページ)
 			service.updateQuiz(quiz);
-			redirectAttributes.addflashAttribute("complete","更新が完了しました");
+			redirectAttributes.addFlashAttribute("complete","更新が完了しました");
 			//更新画面を表示する
 			return "redirect:/quiz/" + quiz.getId();
 
@@ -121,7 +121,7 @@ public class QuizController {
 		Quiz quiz = new Quiz();
 		quiz.setId(quizForm.getId());
 		quiz.setQuestion(quizForm.getQuestion());
-		quiz.setAnswer(quizForm.getAnswert());
+		quiz.setAnswer(quizForm.getAnswer());
 		quiz.setAuthor(quizForm.getAuthor());
 		return quiz;
 	}
@@ -130,7 +130,7 @@ public class QuizController {
 		QuizForm form = new QuizForm();
 		form.setId(quiz.getId());
 		form.setQuestion(quiz.getQuestion());
-		form.setAnswer(quiz.getAnswert());
+		form.setAnswer(quiz.getAnswer());
 		form.setAuthor(quiz.getAuthor());
 		return form;
 	}
@@ -162,6 +162,9 @@ public class QuizController {
 			model.addAttribute("msg","問題がありません・・・");
 			return "play";
 		}
+		//表示用「Model」への格納
+		model.addAttribute("quizForm",quizForm);
+		return "play";
 	}
 	
 	//クイズの正解/不正解を判定する

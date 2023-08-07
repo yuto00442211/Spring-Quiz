@@ -18,7 +18,7 @@ public class QuizForm {
 	@NotBlank
 	private String question;
 	/**クイズの回答*/
-	private boolean answer;
+	private Boolean answer;
 	/**作成者*/
 	@NotBlank
 	private String author;
