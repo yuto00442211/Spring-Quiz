@@ -163,6 +163,7 @@ public class QuizController {
 			return "play";
 		}
 	}
+	
 	//クイズの正解/不正解を判定する
 	@PostMapping("/check")
 	public String checkQuiz(QuizForm quizForm,@RequestParam Boolean answer,Model model) {
