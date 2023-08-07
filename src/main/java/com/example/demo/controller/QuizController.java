@@ -162,14 +162,14 @@ public class QuizController {
 			model.addAttribute("msg","問題がありません・・・");
 			return "play";
 		}
-		//クイズの正解/不正解を判定する
-		@PostMapping("/check")
-		public String checkQuiz(QuizForm quizForm,@RequestParam Boolean answer,Model model) {
-			if(service.checkQuiz(quizForm.getId(),answer)) {
-				model.addAttribute("msg","正解です");
-			}else {
-				model.addAttribute("msg","不正解です");
-			}
+	}
+	//クイズの正解/不正解を判定する
+	@PostMapping("/check")
+	public String checkQuiz(QuizForm quizForm,@RequestParam Boolean answer,Model model) {
+		if(service.checkQuiz(quizForm.getId(),answer)) {
+			model.addAttribute("msg","正解です");
+		}else {
+			model.addAttribute("msg","不正解です");
 		}
 		return "answer";
 	}
