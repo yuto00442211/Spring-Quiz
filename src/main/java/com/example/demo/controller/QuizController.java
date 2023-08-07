@@ -68,7 +68,6 @@ public class QuizController {
 			//エラーがある場合は、一覧表示処理を呼びます
 			return showList(quizForm,model);
 			
-
 		}
 	}
 	//Quizデータを1件取得し、フォーム内に表示する
