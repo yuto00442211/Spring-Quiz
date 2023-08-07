@@ -67,6 +67,7 @@ public class QuizController {
 		}else {
 			//エラーがある場合は、一覧表示処理を呼びます
 			return showList(quizForm,model);
+			
 
 		}
 	}
