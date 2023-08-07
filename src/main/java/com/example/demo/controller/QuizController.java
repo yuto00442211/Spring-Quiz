@@ -99,6 +99,7 @@ public class QuizController {
 			BindingResult result,
 			Model model,
 			RedirectAttributes redirectAttributes){
+		
 		//QuizFormからQuizに詰め直す
 		Quiz quiz = makeQuiz(quizForm);
 		//入力チェック
