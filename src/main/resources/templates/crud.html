@@ -22,7 +22,7 @@
 	<br>
 	<input type="radio" value="true" th:field="*{answer}">「〇」 <input
 		type="radio" value="false" th:field="*{answer}">「×」 <br>
-	<div th:if="${#fields.hasError('answer')}" th:erros="*{question}"
+	<div th:if="${#fields.hasErrors('answer')}" th:errors="*{answer}"
 		style="color: red"></div>
 	<label>作成者：</label>
 	<br>
@@ -45,7 +45,7 @@
 		<p th:if="${delcomplete}" th:text="${delcomplete}" style="color: bule"></p>
 		<p th:if="${msg}" th:text="${msg}" style="color: red"></p>
 		<!-- /*▼▼▼     クイズ情報が一件でもあれば表示      ▼▼▼*/-->
-		<table border="1" th:unless="${#lists.isEmpty(list)"
+		<table border="1" th:unless="${#lists.isEmpty(list)}"
 			style="table-layout: fixed;">
 			<tr>
 				<th>ID</th>
