@@ -22,7 +22,7 @@
 	<br>
 	<input type="radio" value="true" th:field="*{answer}">「〇」 <input
 		type="radio" value="false" th:field="*{answer}">「×」 <br>
-	<div th:if="${#fields.hasError('answer')}" th:erros="*{question}"
+	<div th:if="${#fields.hasError('answer')}" th:errors="*{answer}"
 		style="color: red"></div>
 	<label>作成者：</label>
 	<br>
