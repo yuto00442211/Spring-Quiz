@@ -1,15 +1,5 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 
-</body>
-</html>
-=======
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -21,7 +11,7 @@
 	<!-- /*登録・更新完了コメント*/-->
 	<p th:if="${complete}" style="color: blue"></p>
 	<!-- /*▼▼▼Form▼▼▼*/ -->
-	<from method="POST"
+	<form method="POST"
 		th:action="${quizForm.newQuiz}? @{/quiz/insert}:@{quiz/update}"
 		th:object="${quizForm}"> <label>クイズの内容：</label>
 	<br>
@@ -40,7 +30,7 @@
 	<div th:if="${#fields.hasErrors('author')}" th:errors="*{author}"
 		style="color: red"></div>
 	<input th:if="${id}" type="hidden" th:field="*{id}"> <input
-		type="submit" value="送信"> </from>
+		type="submit" value="送信"> </form>
 	<!-- /*△△△Form△△△ */-->
 	<br>
 	<!-- /* ======== ここまで上部エリア ======== */-->
@@ -56,7 +46,7 @@
 		<p th:if="${msg}" th:text="${msg}" style="color: red"></p>
 		<!-- /*▼▼▼     クイズ情報が一件でもあれば表示      ▼▼▼*/-->
 		<table border="1" th:unless="${#lists.isEmpty(list)"
-			}style="table-layout: fixed;">
+			style="table-layout: fixed;">
 			<tr>
 				<th>ID</th>
 				<th>内容</th>
@@ -65,9 +55,9 @@
 				<th>編集</th>
 				<th>削除</th>
 			</tr>
-			<tr th:each="obk:${list}" aligen="center"></tr>
+			<tr th:each="obj : ${list}" align="center">
 			<td th:text="${obj.id}"></td>
-			<td th:text="${obj.question}" aligen="left"></td>
+			<td th:text="${obj.question}" align="left"></td>
 			<td th:text="${obj.answer}==true?'〇':'×'"></td>
 			<td th:text="${obj.author}"></td>
 			<!-- /* 編集ボタン */ -->
@@ -99,4 +89,3 @@
 	<!-- /*△△△  新規登録時でない時に表示    △△△*/ -->
 </body>
 </html>
->>>>>>> branch 'master' of https://github.com/yuto00442211/Spring-Quiz
